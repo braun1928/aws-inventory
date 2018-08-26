@@ -44,6 +44,53 @@ def get_ec2_inventory(oId):
     )
 
 
+def get_reserved_instances_inventory(oId):
+
+    """
+        Returns ec2 reserved instances inventory
+
+        :param oId: ownerId (AWS account)
+        :type oId: string
+
+        :return: ec2 RI inventory
+        :rtype: json
+
+        .. note:: http://boto3.readthedocs.io/en/latest/reference/services/ec2.html
+    """
+    
+    return glob.get_inventory(
+        ownerId = oId,
+        aws_service = "ec2", 
+        aws_region = "all", 
+        function_name = "describe_reserved_instances", 
+        key_get = "ReservedInstances"
+    )
+
+
+def get_scheduled_instances_inventory(oId):
+
+    """
+        Returns ec2 scheduled instances inventory
+
+        :param oId: ownerId (AWS account)
+        :type oId: string
+
+        :return: ec2 scheduled instances inventory
+        :rtype: json
+
+        .. note:: http://boto3.readthedocs.io/en/latest/reference/services/ec2.html
+    """
+    
+    return glob.get_inventory(
+        ownerId = oId,
+        aws_service = "ec2", 
+        aws_region = "all", 
+        function_name = "describe_scheduled_instances", 
+        key_get = "ScheduledInstanceSet",
+        pagination = True
+    )
+
+
 def get_interfaces_inventory(oId):
 
     """
@@ -62,6 +109,27 @@ def get_interfaces_inventory(oId):
         aws_region = "all", 
         function_name = "describe_network_interfaces", 
         key_get = "NetworkInterfaces"
+    )
+
+
+def get_routes_inventory(oId):
+
+    """
+        Returns network routes inventory
+
+        :param oId: ownerId (AWS account)
+        :type oId: string
+
+        :return: network routes inventory
+        :rtype: json
+    """
+
+    return glob.get_inventory(
+        ownerId = oId,
+        aws_service = "ec2", 
+        aws_region = "all", 
+        function_name = "describe_route_tables", 
+        key_get = "RouteTables"
     )
 
 
@@ -162,6 +230,7 @@ def get_egpus_inventory(oId):
         :rtype: json
     """
 
+    
     return glob.get_inventory(
         ownerId = oId,
         aws_service = "ec2", 

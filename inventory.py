@@ -98,7 +98,9 @@ t0 = time.time()
 
 if ('ec2' in arguments):
     thread_list.append(awsthread.AWSThread("ec2", compute.get_ec2_inventory, ownerId))
+    thread_list.append(awsthread.AWSThread("ec2-reserved-instances", compute.get_reserved_instances_inventory, ownerId))
     thread_list.append(awsthread.AWSThread("ec2-network-interfaces", compute.get_interfaces_inventory, ownerId))
+    thread_list.append(awsthread.AWSThread("ec2-network-routes", compute.get_routes_inventory, ownerId))
     thread_list.append(awsthread.AWSThread("ec2-vpcs", compute.get_vpc_inventory, ownerId))
     thread_list.append(awsthread.AWSThread("ec2-ebs", compute.get_ebs_inventory, ownerId))
     thread_list.append(awsthread.AWSThread("ec2-security-groups", compute.get_sg_inventory, ownerId))
@@ -419,6 +421,8 @@ for svc in arguments:
     if (svc == "ec2"):
 
         inventory["ec2"] = config.global_inventory["ec2"]    
+        inventory["ec2-reserved-instances"] = config.global_inventory["ec2-reserved-instances"]    
+        inventory["ec2-network-routes"] = config.global_inventory["ec2-network-routes"]    
         inventory["ec2-network-interfaces"] = config.global_inventory["ec2-network-interfaces"]    
         inventory["ec2-ebs"] = config.global_inventory["ec2-ebs"]    
         inventory["ec2-vpcs"] = config.global_inventory["ec2-vpcs"]    
@@ -427,7 +431,7 @@ for svc in arguments:
         inventory["ec2-nat-gateways"] = config.global_inventory["ec2-nat-gateways"] 
         inventory["ec2-subnets"] = config.global_inventory["ec2-subnets"] 
         inventory["ec2-eips"] = config.global_inventory["ec2-eips"] 
-        inventory["ec2-egpu"] = config.global_inventory["ec2-egpus"] 
+        #inventory["ec2-egpu"] = config.global_inventory["ec2-egpus"] 
 
     elif (svc == "ecs"):
 
