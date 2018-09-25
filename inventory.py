@@ -331,6 +331,11 @@ if ('cloudtrail' in arguments):
 if ('cloudwatch' in arguments):
     thread_list.append(awsthread.AWSThread('cloudwatch', mgn.get_cloudwatch_inventory, ownerId))
 
+# ----------------- CloudWatch Logs
+#
+if ('logs' in arguments):
+    thread_list.append(awsthread.AWSThread('logs', mgn.get_cloudwatchlogs_inventory, ownerId))
+
 
 #################################################################
 #                          NETWORK                              #

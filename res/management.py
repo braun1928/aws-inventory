@@ -106,6 +106,40 @@ def get_cloudwatch_inventory(oId):
     )
 
 
+#  ------------------------------------------------------------------------
+#
+#    CloudWatch Logs (logs)
+#
+#  ------------------------------------------------------------------------
+
+def get_cloudwatchlogs_inventory(oId):
+
+    """
+        Returns cloudwatchlogs inventory 
+
+        :param oId: ownerId (AWS account)
+        :type oId: string
+
+        :return: cloudwatchlogs inventory
+        :rtype: json
+
+        .. note:: https://boto3.readthedocs.io/en/latest/reference/services/logs.html
+    """
+    
+    return glob.get_inventory(
+        ownerId = oId,
+        aws_service = "logs", 
+        aws_region = "all", 
+        function_name = "describe_log_groups", 
+        key_get = "logGroups",
+        join_key= "logGroupName",
+        detail_function= "describe_log_streams",
+        detail_get_key= "logStreams",
+        detail_join_key= "logGroupName",
+        pagination = True
+    )
+
+
 #
 # Hey, doc: we're in a module!
 #
