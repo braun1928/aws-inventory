@@ -109,6 +109,39 @@ def get_datapipeline_inventory(oId):
     )
 
 
+#  ------------------------------------------------------------------------
+#
+#    Athena (analytics on s3)
+#
+#  ------------------------------------------------------------------------
+
+def get_athena_inventory(oId):
+
+    """
+        Returns athena details. Each query is detailed one by one, it can be optimized with batch_get_named_query
+
+        :param oId: ownerId (AWS account)
+        :type oId: string
+
+        :return: athena inventory
+        :rtype: json
+
+        ..note:: http://boto3.readthedocs.io/en/latest/reference/services/athena.html
+    """ 
+    
+    return glob.get_inventory(
+        ownerId = oId,
+        aws_service = "athena", 
+        aws_region = "all", 
+        function_name = "list_named_queries", 
+        key_get = "NamedQueryIds",
+        pagination = True,
+        join_key = "NamedQueryId",
+        detail_join_key = "NamedQueryId",
+        detail_function = "get_named_query",
+        detail_get_key = ""
+    )
+
 #
 # Hey, doc: we're in a module!
 #

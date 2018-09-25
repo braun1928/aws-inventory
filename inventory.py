@@ -303,6 +303,12 @@ if ('cloudsearch' in arguments):
 #
 if ('datapipeline' in arguments):
     thread_list.append(awsthread.AWSThread('datapipeline', analytics.get_datapipeline_inventory, ownerId)) 
+        
+#
+# ----------------- Athena
+#
+if ('athena' in arguments):
+    thread_list.append(awsthread.AWSThread('athena', analytics.get_athena_inventory, ownerId)) 
 
 
 #################################################################
